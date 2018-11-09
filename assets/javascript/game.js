@@ -29,10 +29,25 @@ document.onkeyup = function(event) {
     userGuessesArray.push(userGuess);
     // console.log(userGuessesArray); //TEST OK
 
-    //Randomize computer guess 
+    //Randomized computer guess 
     var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     // console.log(computerGuess); //TEST OK
     
+    // //Subtract 1 from guessesLeft
+        guessesLeft--;
+
+    //Reset game when guessesLeft = 0
+    function reset(userGuessesArray, wins, losses, guessesLeft, evaluation) {
+        userGuessesArray = [];
+        wins = 0;
+        losses = 0;
+        guessesLeft = 10;
+        evaluation = 0;
+    }
+
+    if (guessesLeft === 0) {
+        reset(userGuessesArray, wins, losses, guessesLeft, evaluation);
+    }
 
     //Evaluate user vs. compter 
     if (userGuess === computerGuess) {
@@ -54,23 +69,9 @@ document.onkeyup = function(event) {
     
     } else if (evaluation <= 60) {
         evaluationText.textContent = evaluation + "% psychic ability. " + "Meh...Pure coincidence.";
-        
+
     } else {
         evaluationText.textContent = evaluation + "% psychic ability. " + "Please report to the NSA immediately!";
     }
 }
 
-//Subtract 1 from guessesLeft
-for (var i = 10; i >=0, i-- ) {
-    guessesLeft--;
-    console.log(guessesLeft);
-}
-
-//Reset game when guessesLeft = 0
-function reset(userGuessesArray, wins, losses, guessesLeft, evaluation) {
-    userGuessesArray = []
-    wins = 0;
-    losses = 0;
-    guessesLeft = 10;
-    evaluation = 0;
-}
