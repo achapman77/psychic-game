@@ -1,7 +1,7 @@
 //Create array of choices for computer
 var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u" ,"v", "w", "x", "y", "z"]
 
-//Create blank array to hold user guesses
+//Create blank array to hold user guesses for future display
 var userGuessesArray = [];
 
 //Create variables to hold number of wins, losses
@@ -16,25 +16,22 @@ var userGuessesText = document.getElementById("user-guesses-text");
 var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
 var guessesLeftText = document.getElementById("guesses-left-text");
-console.log(userGuessesText);
+var evaluationText = document.getElementById("evaluation-text");
 
 //Evaluate user guess by key event
 document.onkeyup = function(event) {
     
     //Determines what key was pressed by user
     var userGuess = event.key;
-    // TEST OK
-    // console.log(userGuess);
+    // console.log(userGuess); // TEST OK
     
     //Add user guess to userGuessesArray
     userGuessesArray.push(userGuess);
-    //TEST OK
-    // console.log(userGuessesArray);
+    // console.log(userGuessesArray); //TEST OK
 
     //Randomize computer guess 
     var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-    // TEST OK
-    // console.log(computerGuess);
+    // console.log(computerGuess); //TEST OK
     
 
     //Evaluate user vs. compter 
@@ -42,8 +39,7 @@ document.onkeyup = function(event) {
         wins++;
     } else {
         losses++;
-        // TEST OK
-        // alert("wrong");
+        // alert("wrong"); //TEST OK
     }
 
     //Display the user guesses and wins/losses/ties
@@ -52,14 +48,23 @@ document.onkeyup = function(event) {
     guessesLeftText.textContent = guessesLeft;
     userGuessesText.textContent = userGuessesArray.toString();
     
-
+    //Evaluate user psychic ability
+    if (evaluation <= 30) {
+        evaluationText.textContent = evaluation + "% psychic ability. " + "Most monkeys are smarter than you.";
+    
+    } else if (evaluation <= 60) {
+        evaluationText.textContent = evaluation + "% psychic ability. " + "Meh...Pure coincidence.";
+        
+    } else {
+        evaluationText.textContent = evaluation + "% psychic ability. " + "Please report to the NSA immediately!";
+    }
 }
 
 //Subtract 1 from guessesLeft
-// for (var i = 10; i >=0, i-- ) {
-//     guessesLeft--;
-//     console.log(guessesLeft);
-// }
+for (var i = 10; i >=0, i-- ) {
+    guessesLeft--;
+    console.log(guessesLeft);
+}
 
 //Reset game when guessesLeft = 0
 function reset(userGuessesArray, wins, losses, guessesLeft, evaluation) {
