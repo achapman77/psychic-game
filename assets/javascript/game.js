@@ -22,12 +22,12 @@ var evaluationText = document.getElementById("evaluation-text");
 var evaluationText2 = document.getElementById("evaluation-text2");
 
 //Message to instructors
-alert("Welcome.  I have console.logged the computer choices if you would like to cheat the system.  I have also added keystroke validation to exclude duplicates and anything other than alphabet.  There are also escalating psychic evaluation messages.");
+// alert("Welcome.  I have console.logged the computer choices if you would like to cheat the system.  I have also added keystroke validation to exclude duplicates and anything other than alphabet.  There are also escalating psychic evaluation messages.");
 
 
 //Initialize Randomized computer guess 
     var computerChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
-    console.log("This is the computerChoice: " + computerChoice)
+    console.log("This is the initialize computerChoice: " + computerChoice)
 
 
 //Evaluate user guess by key event
@@ -55,10 +55,10 @@ document.onkeyup = function(event) {
     //Validate user keystroke 
     function validateUserKey() {
         if (userGuessesArray.includes(userGuess)) {
-        //Excludes entry of duplicate letters in array.  Maintains # of guessesLeft    
+        //Excludes entry of duplicate letters in array.  
+        //Maintains # of guessesLeft    
         alert("You have already entered this letter genius.");
         guessesLeft++;
-
         } else if (alphabet.includes(userGuess)){
         //Add user guess to userGuessesArray
         userGuessesArray.push(userGuess);
@@ -77,14 +77,13 @@ document.onkeyup = function(event) {
         sessionsLeft--;
         resetSession();
        
-    } else if (guessesLeft === 1) {
+    } else if (guessesLeft <= 1) {
         losses++;
         resetSession();
        
     } else if (sessionsLeft === 0) {
-        alert("Thank you for your participation.")
         resetPage();
-    
+        alert("Thank you for your participation.  You can now put your tinfoil hat back on.");
     } else {
          //Subtract 1 from guessesLeft
          validateUserKey();
