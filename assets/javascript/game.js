@@ -72,18 +72,17 @@ document.onkeyup = function(event) {
 
 
     //Evaluate user vs. compter 
-    if (userGuess === computerChoice) {
-        wins++;
-        sessionsLeft--;
-        resetSession();
-       
+    if (sessionsLeft === 0) {
+        resetPage();
+        alert("Thank you for your participation.  You can now put your tinfoil hat back on.");
     } else if (guessesLeft <= 1) {
         losses++;
         resetSession();
        
-    } else if (sessionsLeft === 0) {
-        resetPage();
-        alert("Thank you for your participation.  You can now put your tinfoil hat back on.");
+    } else if (userGuess === computerChoice) {
+        wins++;
+        sessionsLeft--;
+        resetSession();
     } else {
          //Subtract 1 from guessesLeft
          validateUserKey();
