@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychic Test</title>
+
+    <!-- Bootstrap Swatch Template -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/superhero/bootstrap.min.css"/> -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
+    <!-- Custom CSS -->
+    <link rel="style" href="assets/css/style.css" />
+    <!-- Import game.js -->
+
+
+  </head>
+
+
+  <body>
+    <header>
+
+    </header>
+    <div class="container">
+
+        <div class="jumbotron">
+
+                <h1 class="text-center">TOP SECRET: Psychic Evaluation:</h1>
+                <div class="row">
+                    <div class="col-md-8 offset-4">
+                        <p>Try to guess what letter the super computer has picked.</p>
+                        <p>Receive your phsycic evaluation below.</p>
+                    </div>
+                </div>
+
+
+            <div class="row">
+                <form class="col-md-8 offset-2">
+                    <div class="form-group row">
+                        <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Guesses:</label>
+                        <div class="col-sm-9">
+                            <div id="user-guesses-text" class="form-control form-control-lg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Guesses left:</label>
+                        <div class="col-sm-9">
+                            <div id="guesses-left" class="form-control form-control-lg">
+                              <!--You had the this p tag in the header part
+                                   also the p tag and the div both had same id,
+                                   hence it was displaying in the top as it is first, Id's
+                                   have to be unique for the html document
+                                -->
+                                <p id="guesses-left-text"></p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Wins:</label>
+                        <div class="col-sm-9">
+                            <div id="wins-text" class="form-control form-control-lg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Losses:</label>
+                        <div class="col-sm-9">
+                            <div id="losses-text" class="form-control form-control-lg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="colFormLabelLg" class="col-sm-3 col-form-label col-form-label-lg">Evaluation:</label>
+                        <div class="col-sm-9">
+                            <div id="evaluation-text" class="form-control form-control-lg">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  <footer>
+  </footer>
+
+  <script>
+    //Create array of choices for computer
+    var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u" ,"v", "w", "x", "y", "z"]
+    //Create blank array to hold user guesses for future display
+    var userGuessesArray = [];
+
+    //Create variables to hold number of wins, losses
+    var wins = 0;
+    var losses = 0;
+    var guessesLeft = 10;
+    var evaluation = (wins/losses)*100;
+    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    ;
+
+    //Create variables that reference places in the HTML to display things
+    var userGuessesText = document.getElementById("user-guesses-text");
+    var winsText = document.getElementById("wins-text");
+    var lossesText = document.getElementById("losses-text");
+    var guessesLeftText = document.getElementById("guesses-left-text");
+    var evaluationText = document.getElementById("evaluation-text");
+
+    // i WOULD prefer this reset function out of onkeyup event
+    function reset() {
+        userGuessesArray = [];
+        guessesLeft = 10;
+        evaluation = 0;
+        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    // This cannot be in reset function, as this value is not reset for each SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO
+    //wins = 0;
+    //losses = 0;
+       // console.log("reset",userGuessesArray,guessesLeft)
+    }
+
+    //function to display on html document
+    function display() // The parameters created the scope issue
+    {
+      // console.log("display");
+      userGuessesText.textContent = userGuessesArray;
+      winsText.textContent = wins;
+      lossesText.textContent = losses;
+      guessesLeftText.textContent = guessesLeft;
+    }
+
+    //Evaluate user guess by key event
+    document.onkeyup = function(event) {
+        //Determines what key was pressed by user
+        var userGuess = event.key.toLowerCase();
+        // //Randomized computer guess
+        console.log("Computer Guess",computerGuess); //TEST OK
+        // You need to check whether the user pressed only letters and not any other key
+        if(computerChoices.indexOf(userGuess) > -1)
+        {
+          // When valid letter is pressed
+          // Condition:1 check for right guess
+          if(computerGuess === userGuess)
+          {
+            wins++;
+            reset(); // to reset game
+            display(); // to update HTML document
+          }
+          //Else part will be for wrong guess (Option1 -> Tries >0 )(option2 ->tries = 0)
+          else{
+              if (guessesLeft > 0)
+              {
+                  // Check whether the letter already guessed by the user
+                  if(userGuessesArray.indexOf(userGuess)< 0)
+                  {
+                    // this part - if the user has not already guessed
+                    userGuessesArray.push(userGuess);
+                    guessesLeft--;
+                    display(); // to update html with the values
+
+                  }
+                  else {
+                    console.log("Letter already guessed");
+                  //  alert("Letter already guessed"); // commented for testing
+                    // Here don't reduce the number of tries
+                  }
+              }
+              else {
+                //When no more guesses let -> increase losses & reset
+                losses++;
+                reset();
+                display();
+              }
+          }
+        }
+        else {
+          console.log("User Guess",userGuess);
+          // displays alt / caps ...as these are not in computerChoices arrary
+        }
+  }
+        //Add user guess to userGuessesArray
+  //       userGuessesArray.push(userGuess);
+  //       // console.log(userGuessesArray); //TEST OK
+  //
+  //
+  //       // //Subtract 1 from guessesLeft
+  //           guessesLeft--;
+  //
+  //       //Reset game when guessesLeft = 0
+  //
+  //
+  //       if (guessesLeft === 0) {
+  //           reset(userGuessesArray, wins, losses, guessesLeft, evaluation);
+  //       }
+  //
+  //       //Evaluate user vs. compter
+  //       if (userGuess === computerGuess) {
+  //           wins++;
+  //       } else {
+  //           losses++;
+  //           // alert("wrong"); //TEST OK
+  //       }
+  //
+  //       //Display the user guesses and wins/losses/ties
+  //       winsText.textContent = wins;
+  //       lossesText.textContent = losses;
+  //       guessesLeftText.textContent = guessesLeft;
+  //       userGuessesText.textContent = userGuessesArray.toString();
+  //
+  //       //Evaluate user psychic ability
+  //       if (evaluation <= 30) {
+  //           evaluationText.textContent = evaluation + "% psychic ability. " + "Most monkeys are smarter than you.";
+  //
+  //       } else if (evaluation <= 60) {
+  //           evaluationText.textContent = evaluation + "% psychic ability. " + "Meh...Pure coincidence.";
+  //
+  //       } else {
+  //           evaluationText.textContent = evaluation + "% psychic ability. " + "Please report to the NSA immediately!";
+  //       }
+  //   }
+ </script>
+</body>
+</html>

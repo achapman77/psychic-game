@@ -49,7 +49,7 @@ document.onkeyup = function(event) {
     };
     
     //Determines what key was pressed by user
-    var userGuess = event.key;
+    var userGuess = event.key.toLowerCase();
     // console.log(userGuess); // TEST OK
     
     //Validate user keystroke 
